@@ -13,6 +13,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun buNumberEvent(view: android.view.View) {
+        if(isNewOp){
+            edShowNumber.setText("")
+        }
+        isNewOp=false
         val buSelect = view as Button
         var buClickValue: String = edShowNumber.text.toString()
 
@@ -26,9 +30,7 @@ class MainActivity : AppCompatActivity() {
             bu3.id -> {
                 buClickValue += "3"
             }
-            bu4.id -> {
-                buClickValue += "4"
-            }
+
             bu5.id -> {
                 buClickValue += "7"
             }
@@ -48,9 +50,6 @@ class MainActivity : AppCompatActivity() {
                 buClickValue += "6"
             }
 
-            bu11.id -> {
-                buClickValue += "11"
-            }
             bu12.id -> {
                 buClickValue += "1"
             }
@@ -60,15 +59,65 @@ class MainActivity : AppCompatActivity() {
             bu14.id -> {
                 buClickValue += "3"
             }
-            bu15.id -> {
-                buClickValue += "15"
-            }
             bu16.id -> {
                 buClickValue += "0"
+            }
+            bu17.id -> {
+                buClickValue += "."
             }
 
         }
 
         edShowNumber.setText(buClickValue)
     }
+
+     var op ="*"
+     var oldNumber = ""
+     var isNewOp = true
+    fun buOpEvent(view: android.view.View) {
+
+        val buSelect = view as Button
+
+        when(buSelect.id) {
+            buMul.id -> {
+                op ="*"
+            }
+            buDiv.id -> {
+                op ="/"
+            }
+            buSub.id -> {
+                op ="-"
+            }
+            buAdd.id -> {
+                op ="+"
+            }
+        }
+        oldNumber = edShowNumber.text.toString()
+        isNewOp=true
+    }
+
+    fun buEqualEvent(view: android.view.View) {
+        var newNumber = edShowNumber.text.toString()
+        var finalNumber:Double?=null
+        when(op){
+            "*"->{
+                finalNumber = oldNumber.toDouble() * newNumber.toDouble()
+            }
+            "/"->{
+                finalNumber = oldNumber.toDouble() / newNumber.toDouble()
+            }
+            "-"->{
+                finalNumber = oldNumber.toDouble() - newNumber.toDouble()
+            }
+            "+"->{
+                finalNumber = oldNumber.toDouble() + newNumber.toDouble()
+            }
+        }
+        edShowNumber.setText(finalNumber.toString())
+        isNewOp=true
+    }
+
+
+
+
 }
